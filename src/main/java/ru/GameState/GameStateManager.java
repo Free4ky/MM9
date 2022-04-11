@@ -12,18 +12,15 @@ public class GameStateManager {
 	public ArrayList<GameState> gameStates; // массив состояний игры
 	public static int currentState; // текущее состояние игры
 	
-	public static final int MENUSTATE = 0;
-	public static final int LEVEL_MENU = 1;
-	public static final int LEVEL1STATE = 2;
+	public static final int INPUT = 1;
+	public static final int MODEL = 0;
 
 	public GameStateManager() {
 
 		gameStates = new ArrayList<GameState>();
 		
-		currentState = MENUSTATE;
-		gameStates.add(new MenuState(this));
-		gameStates.add(new LevelMenuState(this));
-		gameStates.add(new Level1State(this));
+		currentState = MODEL;
+		gameStates.add(new Model(this));
 	}
 
 	// Метод установки состояния игры

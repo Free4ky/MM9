@@ -1,5 +1,6 @@
 package ru.Entity;
 
+import ru.GameState.Model;
 import ru.Main.Game;
 import ru.Main.GamePanel;
 
@@ -20,7 +21,7 @@ public class Man extends MapObject{
 
     public void update(){
         if(onRaft){
-            setVector(GamePanel.raft.getDx(),0);
+            setVector(Model.raft.getDx(),0);
         }
         x+=dx;
     }
