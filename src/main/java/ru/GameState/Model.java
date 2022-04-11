@@ -19,9 +19,8 @@ public class Model extends GameState{
     private ArrayList<Man> peopleToCarry;
 
     private int NUM_TO_CARRY;
-    private int NUM_PEOPLE;
+    public static int NUM_PEOPLE;
     public Model(GameStateManager gsm){
-        init();
         this.gsm = gsm;
     }
     public void init(){
@@ -37,8 +36,7 @@ public class Model extends GameState{
         raft.setVector(0.5,0);
 
         NUM_TO_CARRY = randomWithRange(1,10);
-        NUM_PEOPLE = 40;
-
+        NUM_PEOPLE = InputState.num_people;
         people = new ArrayList<Man>();
         peopleToCarry = new ArrayList<Man>();
         for(int i = 0; i < NUM_PEOPLE; i++){
@@ -169,6 +167,7 @@ public class Model extends GameState{
         for(Man m:peopleToCarry){
             m.draw(g);
         }
+        g.drawString("Осталось: " + (people.size() + peopleToCarry.size()),10,10);
     }
 
     @Override

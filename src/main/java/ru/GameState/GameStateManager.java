@@ -3,6 +3,8 @@
  */
 package ru.GameState;
 
+import ru.Main.GamePanel;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,21 +14,25 @@ public class GameStateManager {
 	public ArrayList<GameState> gameStates; // массив состояний игры
 	public static int currentState; // текущее состояние игры
 	
-	public static final int INPUT = 1;
-	public static final int MODEL = 0;
+	public static final int INPUT = 0;
+	public static final int MODEL = 1;
 
-	public GameStateManager() {
+	public GamePanel gamePanel;
 
+	public GameStateManager(GamePanel gamePanel) {
+
+		this.gamePanel = gamePanel;
 		gameStates = new ArrayList<GameState>();
 		
-		currentState = MODEL;
+		currentState = INPUT;
+		gameStates.add(new InputState(this));
 		gameStates.add(new Model(this));
 	}
 
 	// Метод установки состояния игры
 	public void setState(int state) {
 		currentState = state;
-		gameStates.get(currentState).init();
+		//gameStates.get(currentState).init();
 	}
 
 	// Метод обновления

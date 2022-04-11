@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true); // позволяет фокусироваться на объекте GamePanel. Необходимо для обработки пользовательского ввода
 		requestFocus(); // получает фокус
+		init();
 	}
 
 	// addNotify - Делает этот компонент JPanel отображаемым, подключая его к собственному экранному ресурсу.
@@ -55,15 +56,13 @@ public class GamePanel extends JPanel implements Runnable{
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		//Создание пера для холста image
 		g = (Graphics2D) image.getGraphics();
-		gsm = new GameStateManager();
+		gsm = new GameStateManager(this);
 		running = true;
 	}
 
 	// Запуск задачи потока
 	public void run() {
-		
-		init();
-		
+
 		long start;
 		long elapsed;
 		long wait;
@@ -111,9 +110,11 @@ public class GamePanel extends JPanel implements Runnable{
 	// Такой подход называется double buffering (двойная буферизация)
 	// Это позволяет снизить блики, мерцания и нечеткости итоговой картинки
 	private void drawToScreen() {
-		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-		g2.dispose();
+		if(!(GameStateManager.currentState == GameStateManager.INPUT)){
+			Graphics g2 = getGraphics();
+			g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+			g2.dispose();
+		}
 	}
 
 	public static BufferedImage resize(BufferedImage img, int newW, int newH) {
